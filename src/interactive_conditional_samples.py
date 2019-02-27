@@ -8,7 +8,7 @@ import tensorflow as tf
 
 import model, sample, encoder
 
-//initializing params 
+#initializing params 
 def interact_model(
     model_name='117M',
     seed=None,
@@ -20,10 +20,10 @@ def interact_model(
 ):
     if batch_size is None:
         batch_size = 1
-    assert nsamples % batch_size == 0   //throws AssertionError if the given argument is not true
+    assert nsamples % batch_size == 0   #throws AssertionError if the given argument is not true
 
-    enc = encoder.get_encoder(model_name)
-    hparams = model.default_hparams()
+    enc = encoder.get_encoder(model_name)   #returns model encoding (JSON object) & BPE_merges (tuple): both are their own files
+    hparams = model.default_hparams()   # return default params
     with open(os.path.join('models', model_name, 'hparams.json')) as f:
         hparams.override_from_dict(json.load(f))
 
@@ -34,7 +34,7 @@ def interact_model(
 
     with tf.Session(graph=tf.Graph()) as sess:
         context = tf.placeholder(tf.int32, [batch_size, None])
-        np.random.seed(seed)
+        np.random.seed(seed)    #seed makes sure each time same set of random numbers are taken  
         tf.set_random_seed(seed)
         output = sample.sample_sequence(
             hparams=hparams, length=length,
