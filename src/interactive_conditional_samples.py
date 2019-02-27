@@ -8,6 +8,7 @@ import tensorflow as tf
 
 import model, sample, encoder
 
+//initializing params 
 def interact_model(
     model_name='117M',
     seed=None,
@@ -19,7 +20,7 @@ def interact_model(
 ):
     if batch_size is None:
         batch_size = 1
-    assert nsamples % batch_size == 0
+    assert nsamples % batch_size == 0   //throws AssertionError if the given argument is not true
 
     enc = encoder.get_encoder(model_name)
     hparams = model.default_hparams()
